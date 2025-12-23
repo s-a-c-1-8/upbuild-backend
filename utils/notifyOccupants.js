@@ -2,7 +2,8 @@ const Flat = require("../model/flat/flatModel");
 const UserRoleAssignment = require("../model/user/userRoleAssignment");
 const Notification = require("../model/user/notification");
 const PushToken = require("../model/PushToken");
-const sendExpoPush = require("../utils/sendExpoPush");
+const sendFCM = require("../utils/sendFCM");
+
 
 module.exports = async function notifyOccupants({
   apartmentId,
@@ -66,27 +67,27 @@ module.exports = async function notifyOccupants({
       `📢 Notification created for flat ${flatId} → recipients: ${recipientAssignmentIds.length}`
     );
 
-    // 🔹 5. Fetch Expo push tokens
-    const pushTokens = await PushToken.find({
+    // 🔹 5. Fetch FCM tokens (ONLY THIS)
+    const fcmTokens = await PushToken.find({
       userId: { $in: recipientUserIds },
       apartmentId,
       flatId,
-      expoPushToken: { $exists: true },
-    }).distinct("expoPushToken");
+      fcmToken: { $exists: true },
+    }).distinct("fcmToken");
 
-    if (!pushTokens.length) {
-      console.log("⚠️ No Expo push tokens found for recipients");
+    if (!fcmTokens.length) {
+      console.log("⚠️ No FCM tokens found for recipients");
       return;
     }
 
-    // 🔹 6. Send PUSH notification 🚀
-    await sendExpoPush(pushTokens, "New Visitor Alert", message, {
-      notificationId: notification._id.toString(),
-      flatId,
-      apartmentId,
-      link,
-      type: logModel, // e.g. VISITOR_LOG
-    });
+    // 🔹 6. Send REAL push notification 🚀
+    for (const token of fcmTokens) {
+      await sendFCM(token, "New Visitor Alert", message, {
+        notificationId: notification._id.toString(),
+        flatId,
+        apartmentId,
+      });
+    }
   } catch (err) {
     console.error("❌ Failed to send occupant notification:", err);
   }

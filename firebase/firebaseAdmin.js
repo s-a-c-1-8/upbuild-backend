@@ -7,24 +7,4 @@ if (!admin.apps.length) {
   });
 }
 
-async function sendFCM(token, title, body, data = {}) {
-  const message = {
-    token,
-    notification: {
-      title,
-      body,
-    },
-    data,
-    android: {
-      priority: "high",
-      notification: {
-        channelId: "default",
-        sound: "default",
-      },
-    },
-  };
-
-  return admin.messaging().send(message);
-}
-
-module.exports = { sendFCM };
+module.exports = admin;

@@ -9,7 +9,7 @@ const pushTokenSchema = new mongoose.Schema(
       required: true,
       index: true,
     },
-    expoPushToken: {
+    fcmToken: {
       type: String,
       required: true,
       unique: true,
