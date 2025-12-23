@@ -2,7 +2,7 @@
 // const bcrypt = require("bcryptjs");
 // const User = require("../../model/user/userModel");
 // const UnapprovedUser = require("../../model/user/unapprovedUser");
-// const ApartmentRole = require("../../model/apartment/apartmentrole"); // ✅ Add this line
+// const ApartmentRole = require("../../model/apartment/apartmentRole"); // ✅ Add this line
 
 // exports.userLoginController = async (req, res) => {
 //   const { email, password } = req.body;

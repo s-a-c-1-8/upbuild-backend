@@ -3,7 +3,7 @@ const Complaint = require("../../../model/flat/complaint");
 const Flat = require("../../../model/flat/flatModel");
 const Apartment = require("../../../model/apartment/apartmentModel");
 const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
-const Role = require("../../../model/apartment/apartmentrole");
+const Role = require("../../../model/apartment/apartmentRole");
 const logAction = require("../../../utils/logAction"); // ✅ Import logAction
 const notifyApartmentAdmins = require("../../../utils/notifyApartmentAdmin"); // ✅ add util
 

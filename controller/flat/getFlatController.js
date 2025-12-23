@@ -1,7 +1,7 @@
 const Flat = require("../../model/flat/flatModel");
 const User = require("../../model/user/userModel");
 const UserRoleAssignment = require("../../model/user/userRoleAssignment");
-const ApartmentRole = require("../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../model/apartment/apartmentRole");
 
 // GET FLATS BY APARTMENT ID
 // exports.getFlatsByApartmentId = async (req, res) => {

@@ -2,7 +2,7 @@
 
 const EventFlatMaintenance = require("../../../../model/flat/maintenance/events");
 const UserRoleAssignment = require("../../../../model/user/userRoleAssignment");
-const ApartmentRole = require("../../../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../../../model/apartment/apartmentRole");
 
 const getEventDetailsById = async (req, res) => {
   const { id } = req.params;

@@ -1,7 +1,7 @@
 const CorpusFlatMaintenance = require("../../../../model/flat/maintenance/corpusMaintenance");
 const Flat = require("../../../../model/flat/flatModel");
 const UserRoleAssignment = require("../../../../model/user/userRoleAssignment");
-const ApartmentRole = require("../../../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../../../model/apartment/apartmentRole");
 const applyCorpusPenalties = require("./applyPenaltiesCorpus");
 
 exports.getAllCorpusByApartmentId = async (req, res) => {

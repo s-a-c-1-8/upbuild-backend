@@ -1,5 +1,5 @@
 const userRoleAssignment = require("../model/user/userRoleAssignment");
-const ApartmentRole = require("../model/apartment/apartmentrole");
+const ApartmentRole = require("../model/apartment/apartmentRole");
 const notification = require("../model/user/notification");
 
 module.exports = async function notifyApartmentAdmins({

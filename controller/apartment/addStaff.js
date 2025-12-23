@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const User = require("../../model/user/userModel");
-const ApartmentRole = require("../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../model/apartment/apartmentRole");
 const UserRoleAssignment = require("../../model/user/userRoleAssignment");
 const bcrypt = require("bcryptjs");
 const logAction = require("../../utils/logAction"); // ✅ import logAction

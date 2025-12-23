@@ -1,5 +1,5 @@
 const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
-const ApartmentRole = require("../../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../../model/apartment/apartmentRole");
 
 exports.getComplaintAssignees = async (req, res) => {
   try {

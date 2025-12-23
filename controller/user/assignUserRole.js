@@ -1,7 +1,7 @@
 // const bcrypt = require("bcryptjs");
 // const User = require("../../model/user/userModel");
 // const Flat = require("../../model/flat/flatModel");
-// const ApartmentRole = require("../../model/apartment/apartmentrole");
+// const ApartmentRole = require("../../model/apartment/apartmentRole");
 
 // exports.assignUserRole = async (
 //   req,

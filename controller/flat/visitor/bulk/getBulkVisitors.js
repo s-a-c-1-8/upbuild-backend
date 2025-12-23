@@ -95,7 +95,7 @@
 const mongoose = require("mongoose");
 const FlatBulkVisitor = require("../../../../model/flat/visitorBulk");
 const UserRoleAssignment = require("../../../../model/user/userRoleAssignment");
-const ApartmentRole = require("../../../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../../../model/apartment/apartmentRole");
 
 exports.getVisitorsFromApartmentIdBulk = async (req, res) => {
   try {

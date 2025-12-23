@@ -89,7 +89,7 @@
 // const mongoose = require("mongoose");
 // const Complaint = require("../../../model/flat/complaint");
 // const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
-// const Role = require("../../../model/apartment/apartmentrole");
+// const Role = require("../../../model/apartment/apartmentRole");
 
 // exports.getComplaintTimeline = async (req, res) => {
 //   try {
@@ -239,7 +239,7 @@
 const mongoose = require("mongoose");
 const Complaint = require("../../../model/flat/complaint");
 const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
-const Role = require("../../../model/apartment/apartmentrole");
+const Role = require("../../../model/apartment/apartmentRole");
 
 exports.getComplaintTimeline = async (req, res) => {
   try {

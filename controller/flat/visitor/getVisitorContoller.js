@@ -141,7 +141,7 @@ const VisitorLog = require("../../../model/flat/visitorLogModel");
 const Visitor = require("../../../model/flat/visitorModel");
 const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
 const User = require("../../../model/user/userModel");
-const ApartmentRole = require("../../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../../model/apartment/apartmentRole");
 
 exports.getVisitorsFromApartmentId = async (req, res) => {
   try {

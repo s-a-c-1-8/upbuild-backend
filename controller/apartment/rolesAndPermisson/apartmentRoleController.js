@@ -1,4 +1,4 @@
-// const ApartmentRole = require("../../model/apartment/apartmentrole");
+// const ApartmentRole = require("../../model/apartment/apartmentRole");
 // const ApartmentPermission = require("../../model/apartment/apartmentPermission");
 // const logAction = require("../../utils/logAction"); // ✅ import logAction
 

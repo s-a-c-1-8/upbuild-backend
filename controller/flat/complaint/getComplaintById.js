@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Complaint = require("../../../model/flat/complaint");
 const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
-const Role = require("../../../model/apartment/apartmentrole");
+const Role = require("../../../model/apartment/apartmentRole");
 
 exports.getComplaintById = async (req, res) => {
   try {

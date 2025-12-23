@@ -1,4 +1,4 @@
-const ApartmentRole = require("../../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../../model/apartment/apartmentRole");
 
 const getApartmentRoleGroups = async (req, res) => {
   const { apartmentId } = req.params;

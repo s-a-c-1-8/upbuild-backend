@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Flat = require("../../model/flat/flatModel");
 const User = require("../../model/user/userModel");
 const UserRoleAssignment = require("../../model/user/userRoleAssignment");
-const ApartmentRole = require("../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../model/apartment/apartmentRole");
 const logAction = require("../../utils/logAction"); // ✅ Import logAction
 
 exports.createFlatData = async (req, res) => {

@@ -3,7 +3,7 @@ const Flat = require("../../../model/flat/flatModel");
 const User = require("../../../model/user/userModel");
 const UnapprovedUser = require("../../../model/user/unapprovedUser");
 const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
-const ApartmentRole = require("../../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../../model/apartment/apartmentRole");
 
 exports.approveUnapprovedUser = async (req, res) => {
   const session = await mongoose.startSession();

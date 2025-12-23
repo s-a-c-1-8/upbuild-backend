@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Complaint = require("../../../model/flat/complaint");
 const logAction = require("../../../utils/logAction");
 const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
-const Role = require("../../../model/apartment/apartmentrole");
+const Role = require("../../../model/apartment/apartmentRole");
 const notifyOccupants = require("../../../utils/notifyOccupants");
 const notifyApartmentAdmins = require("../../../utils/notifyApartmentAdmin");
 

@@ -1,7 +1,7 @@
 const MonthlyFlatMaintenance = require("../../../model/flat/maintenance/maintenance");
 const Flat = require("../../../model/flat/flatModel");
 const UserRoleAssignment = require("../../../model/user/userRoleAssignment");
-const ApartmentRole = require("../../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../../model/apartment/apartmentRole");
 const { applyPenaltiesAndUpdateTotals } = require("./applyPenaltiesAndUpdateDb");
 
 exports.getAllMaintenanceByApartmentId = async (req, res) => {

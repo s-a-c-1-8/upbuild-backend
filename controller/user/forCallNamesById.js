@@ -1,5 +1,5 @@
 const Apartment = require("../../model/apartment/apartmentModel");
-const ApartmentRole = require("../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../model/apartment/apartmentRole");
 const User = require("../../model/user/userModel");
 
 exports.getNamesByIds = async (req, res) => {

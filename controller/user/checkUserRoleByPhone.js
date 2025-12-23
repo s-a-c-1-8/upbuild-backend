@@ -1,5 +1,5 @@
 const User = require("../../model/user/userModel");
-const ApartmentRole = require("../../model/apartment/apartmentrole");
+const ApartmentRole = require("../../model/apartment/apartmentRole");
 const UserRoleAssignment = require("../../model/user/userRoleAssignment");
 
 exports.checkUserByPhone = async (req, res) => {
