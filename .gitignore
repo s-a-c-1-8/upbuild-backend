@@ -3,6 +3,10 @@
 # Learn more about .gitignore:
 #     https://www.atlassian.com/git/tutorials/saving-changes/gitignore
 .env
+# Firebase
+firebase-service.json
+firebase/firebase-service.json
+
 # Node artifact files
 node_modules/
 dist/
