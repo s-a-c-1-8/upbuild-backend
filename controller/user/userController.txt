@@ -1,0 +1,178 @@
+// const jwt = require("jsonwebtoken");
+// const bcrypt = require("bcryptjs");
+// const User = require("../../model/user/userModel");
+// const UnapprovedUser = require("../../model/user/unapprovedUser");
+// const ApartmentRole = require("../../model/apartment/apartmentrole"); // ✅ Add this line
+
+// exports.userLoginController = async (req, res) => {
+//   const { email, password } = req.body;
+
+//   if (!email || !password) {
+//     return res.status(400).json({ message: "Email and password are required" });
+//   }
+
+//   try {
+//     const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+//     const query = isEmail
+//       ? { email: email.toLowerCase() }
+//       : { contactNumber: email };
+
+//     const user = await User.findOne(query)
+//       .populate("userRole")
+//       .populate("apartment");
+
+//     if (!user) {
+//       return res.status(401).json({ message: "Invalid credentials" });
+//     }
+
+//     const isMatch = await bcrypt.compare(password, user.password);
+//     if (!isMatch) {
+//       return res.status(401).json({ message: "Invalid credentials" });
+//     }
+
+//     const token = jwt.sign(
+//       {
+//         id: user._id,
+//         userType: "user",
+//         roles: user.userRole.map((role) => role.name), // ✅ array of role names
+//       },
+//       process.env.JWT_SECRET,
+//       { expiresIn: "30d" }
+//     );
+
+//     res.status(200).json({
+//       message: "Login successful",
+//       token,
+//       userDetails: {
+//         _id: user._id,
+//         name: user.name,
+//         email: user.email,
+//         contactNumber: user.contactNumber,
+//         apartment: user.apartment?._id,
+//         roles: user.userRole.map((role) => role._id),
+//       },
+//     });
+//   } catch (error) {
+//     console.error("Login error:", error);
+//     res.status(500).json({ message: "Server error", error: error.message });
+//   }
+// };
+
+// exports.verifyOtpLoginController = async (req, res) => {
+//   const { identifier, otp } = req.body;
+
+//   if (!identifier || !otp) {
+//     return res
+//       .status(400)
+//       .json({ message: "Phone/Email and OTP are required" });
+//   }
+
+//   const isEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(identifier);
+//   const query = isEmail ? { email: identifier } : { contactNumber: identifier };
+
+//   try {
+//     const user = await User.findOne(query)
+//       .populate("userRole")
+//       .populate("apartment");
+
+//     if (user) {
+//       if (user.otp === "N/A") {
+//         return res
+//           .status(410)
+//           .json({ message: "OTP expired. Please request a new one." });
+//       }
+
+//       if (user.otp !== otp) {
+//         return res.status(401).json({ message: "Invalid OTP" });
+//       }
+
+//       // ✅ Clear OTP
+//       user.otp = "N/A";
+//       await user.save();
+
+//       const token = jwt.sign(
+//         {
+//           id: user._id,
+//           userType: "user",
+//           roles: user.userRole.map((role) => role.name),
+//         },
+//         process.env.JWT_SECRET,
+//         { expiresIn: "30d" }
+//       );
+
+//       return res.status(200).json({
+//         message: "OTP login successful",
+//         token,
+//         userDetails: {
+//           _id: user._id,
+//           name: user.name,
+//           email: user.email,
+//           contactNumber: user.contactNumber,
+//           apartment: user.apartment?._id,
+//           roles: user.userRole.map((role) => role._id),
+//         },
+//       });
+//     } else {
+//       // 🔍 If user does not exist, check unapproved users
+//       const unapproved = await UnapprovedUser.findOne(query);
+
+//       if (!unapproved) {
+//         return res
+//           .status(404)
+//           .json({ message: "User not found. Please register or try again." });
+//       }
+
+//       if (unapproved.otp !== otp) {
+//         return res
+//           .status(401)
+//           .json({ message: "Invalid OTP. Please request a new one." });
+//       }
+
+//       if (unapproved.otp === "N/A") {
+//         return res
+//           .status(410)
+//           .json({ message: "OTP expired. Please request a new one." });
+//       }
+
+//       const occupantRole = await ApartmentRole.findOne({ slug: "occupants" });
+
+//       if (!occupantRole) {
+//         return res
+//           .status(500)
+//           .json({ message: "Occupant role not found in the system." });
+//       }
+
+//       unapproved.userRole = occupantRole._id; // ✅ not [occupantRole._id]
+//       unapproved.apartment = occupantRole.apartment;
+//       unapproved.otp = "N/A";
+//       await unapproved.save();
+
+//       const token = jwt.sign(
+//         {
+//           id: unapproved._id,
+//           userType: "unapprovedUser",
+//           roles: [occupantRole.slug], // or occupantRole.name
+//         },
+//         process.env.JWT_SECRET,
+//         { expiresIn: "30d" }
+//       );
+
+//       return res.status(200).json({
+//         message: "OTP verified. Awaiting admin approval.",
+//         token, // ✅ Send token
+
+//         unapprovedUser: {
+//           _id: unapproved._id,
+//           identifier: isEmail ? unapproved.email : unapproved.contactNumber,
+//           type: isEmail ? "email" : "phone",
+//           roles: occupantRole._id, // 🔄 Store single ObjectId instead of array
+//         },
+//       });
+//     }
+//   } catch (error) {
+//     console.error("OTP verification error:", error);
+//     return res
+//       .status(500)
+//       .json({ message: "Server error", error: error.message });
+//   }
+// };
