@@ -84,8 +84,9 @@ module.exports = async function notifyOccupants({
     for (const token of fcmTokens) {
       await sendFCM(token, "New Visitor Alert", message, {
         notificationId: notification._id.toString(),
-        flatId,
-        apartmentId,
+        flatId: flatId.toString(),
+        apartmentId: apartmentId.toString(),
+        type: logModel,
       });
     }
   } catch (err) {

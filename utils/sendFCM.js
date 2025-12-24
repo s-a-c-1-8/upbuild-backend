@@ -1,13 +1,17 @@
 const admin = require("../firebase/firebaseAdmin");
 
 async function sendFCM(token, title, body, data = {}) {
-  return admin.messaging().send({
+  const message = {
     token,
-    notification: {
-      title,
-      body,
+    data: {
+      title: String(title),
+      body: String(body),
+
+      notificationId: String(data.notificationId),
+      flatId: String(data.flatId),
+      apartmentId: String(data.apartmentId),
+      type: String(data.type || "VISITOR"),
     },
-    data,
     android: {
       priority: "high",
       notification: {
@@ -15,7 +19,10 @@ async function sendFCM(token, title, body, data = {}) {
         sound: "default",
       },
     },
-  });
+  };
+
+  return admin.messaging().send(message);
 }
+
 
 module.exports = sendFCM;
