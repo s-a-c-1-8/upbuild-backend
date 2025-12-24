@@ -46,26 +46,32 @@
 const PushToken = require("../../../model/PushToken");
 
 const savePushToken = async (req, res) => {
-  const userId = req.user.id;
+  console.log("🔥 savePushToken HIT");
+  console.log("User:", req.user);
+  console.log("Body:", req.body);
+
+  const userId = req.user?.id;
+
+  if (!userId) {
+    return res.status(401).json({ message: "Unauthorized" });
+  }
+
   const { fcmToken, apartmentId, flatId } = req.body;
 
   if (!fcmToken) {
     return res.status(400).json({ message: "FCM token required" });
   }
 
-  await PushToken.findOneAndUpdate(
+  const saved = await PushToken.findOneAndUpdate(
     { userId },
-    {
-      fcmToken,
-      apartmentId,
-      flatId,
-      device: "android",
-    },
+    { fcmToken, apartmentId, flatId, device: "android" },
     { upsert: true, new: true }
   );
 
+  console.log("✅ Push token saved:", saved);
   res.json({ success: true });
 };
+
 
 
 module.exports = { savePushToken };

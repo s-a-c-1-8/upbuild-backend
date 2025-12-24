@@ -149,7 +149,9 @@ app.use("/api", require("./routes/subAdmin/subAdminRoutes"));
 app.use("/api", require("./routes/superAdmin/apartmentPermisson"));
 app.use("/api", require("./routes/user/userRoutes"));
 app.use("/api", require("./routes/user/otpRoutes"));
-app.use("/api", require("./routes/user/savePushToken"));
+// app.use("/api", require("./routes/user/savePushToken"));
+app.use("/api", require("./routes/user.routes"));
+// 
 app.use("/api", require("./routes/apartment/apartmentRoutes"));
 app.use("/api", require("./routes/apartment/apartmentPermissionRoutes"));
 app.use("/api", require("./routes/apartment/apartmentRoleRoutes"));
