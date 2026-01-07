@@ -1,26 +1,23 @@
+// utils/sendFCM.js
 const admin = require("../firebase/firebaseAdmin");
+const PushToken = require("../model/PushToken");
 
-/**
- * Send FCM push notification
- * - Shows system notification (notification block)
- * - Sends extra data for in-app handling (data block)
- */
 async function sendFCM(token, title, body, data = {}) {
   const message = {
     token,
 
-    // 🔔 REQUIRED: This makes the notification SHOW in Android UI
+    // 🔔 System notification
     notification: {
       title: String(title),
       body: String(body),
     },
 
-    // 📦 OPTIONAL: Silent data for app navigation / logic
+    // 📦 Extra data
     data: {
-      notificationId: data.notificationId ? String(data.notificationId) : "",
-      flatId: data.flatId ? String(data.flatId) : "",
-      apartmentId: data.apartmentId ? String(data.apartmentId) : "",
-      type: data.type ? String(data.type) : "VISITOR",
+      notificationId: data.notificationId || "",
+      flatId: data.flatId || "",
+      apartmentId: data.apartmentId || "",
+      type: data.type || "VISITOR",
     },
 
     android: {
@@ -32,7 +29,25 @@ async function sendFCM(token, title, body, data = {}) {
     },
   };
 
-  return admin.messaging().send(message);
+  try {
+    const response = await admin.messaging().send(message);
+    console.log("✅ FCM sent:", response);
+    return response;
+  } catch (err) {
+    const code = err?.errorInfo?.code;
+    console.error("❌ FCM send failed:", code);
+
+    // 🔥 CLEAN DEAD TOKENS AUTOMATICALLY
+    if (
+      code === "messaging/registration-token-not-registered" ||
+      code === "messaging/invalid-registration-token"
+    ) {
+      console.warn("🧹 Removing invalid FCM token:", token);
+      await PushToken.deleteOne({ fcmToken: token });
+    }
+
+    throw err;
+  }
 }
 
 module.exports = sendFCM;

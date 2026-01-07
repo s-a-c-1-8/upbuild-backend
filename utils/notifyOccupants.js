@@ -68,20 +68,26 @@ module.exports = async function notifyOccupants({
     );
 
     // 🔹 5. Fetch FCM tokens (ONLY THIS)
-    const fcmTokens = await PushToken.find({
+    // 🔹 5. Fetch LATEST FCM tokens (no stale ones)
+    const pushTokens = await PushToken.find({
       userId: { $in: recipientUserIds },
       apartmentId,
       flatId,
-      fcmToken: { $exists: true },
-    }).distinct("fcmToken");
+      device: "android",
+    })
+      .sort({ updatedAt: -1 }) // newest first
+      .select("fcmToken userId");
 
-    if (!fcmTokens.length) {
-      console.log("⚠️ No FCM tokens found for recipients");
+    // If no tokens → stop
+    if (!pushTokens.length) {
+      console.log("⚠️ No active FCM tokens found");
       return;
     }
 
+   
+
     // 🔹 6. Send REAL push notification 🚀
-    for (const token of fcmTokens) {
+    for (const token of pushTokens) {
       await sendFCM(token, "New Visitor Alert", message, {
         notificationId: notification._id.toString(),
         flatId: flatId.toString(),
