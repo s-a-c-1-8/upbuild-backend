@@ -74,8 +74,7 @@ module.exports = async function notifyOccupants({
       apartmentId,
       flatId,
       device: "android",
-    })
-      .sort({ updatedAt: -1 }) // newest first
+    }).sort({ updatedAt: -1 }) // newest first
       .select("fcmToken userId");
 
     // If no tokens → stop
@@ -88,13 +87,16 @@ module.exports = async function notifyOccupants({
 
     // 🔹 6. Send REAL push notification 🚀
     for (const token of pushTokens) {
-      await sendFCM(token, "New Visitor Alert", message, {
+      console.log("🚀 Sending FCM to:", token.fcmToken);
+
+      await sendFCM(token.fcmToken, "New Visitor Alert", message, {
         notificationId: notification._id.toString(),
         flatId: flatId.toString(),
         apartmentId: apartmentId.toString(),
         type: logModel,
       });
     }
+
   } catch (err) {
     console.error("❌ Failed to send occupant notification:", err);
   }
